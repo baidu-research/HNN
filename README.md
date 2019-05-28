@@ -20,7 +20,7 @@ python hubness_in_translations.py pt en -k 5 -N 200
 ```
 It will produce `k-occurrence` (k=5 in this case) histograms, as measures of hubness, for the different methods. In particular, long tail of the histogram indicates strong hubness, which should be reduced. The Portuguese to English example will have the following histograms, where HNN has the shortest tail, *i.e.*, weakest hubness.
 <p align="center">
-    <img src="exp/bli_500K/pt-en.k_occur.png" width="400">
+    <img src="doc/pt-en.k_occur.png" width="400">
 </p>
 We will also see some "hubby" words being listed, for example:
 
