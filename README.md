@@ -63,7 +63,7 @@ to see the synthetic data example in section 5.1 of the paper. The task is simpl
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
 
-First, download the fasttext embeddings and dictionaries at [MUSE](https://github.com/facebookresearch/MUSE).
+First, download the fasttext embeddings and dictionaries.
 ```
 ./get_data.sh
 ```
@@ -71,7 +71,7 @@ Second, run
 ```
 ./bli_exp.sh
 ```
-to get induction accuracies. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE). The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.txt`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages.
+to get induction accuracies. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE), but differs in that we use larger test dictionaries (data/src-tgt.txt). The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.trans`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages. In supplementary material, We have also reported results of using a vocabulary of 200K. To reproduce that, simply change `V=200000` in `bli_exp.sh`.
 
 After the jobs are done, we can check how hubness is reduced. For example, to check the hubness for Portuguese-to-English task, simply run
 ```
