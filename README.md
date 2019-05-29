@@ -6,6 +6,7 @@
 
 # HNN
 This repositorty contains the code to reproduce all results from the paper:
+
 Jiaji Huang, Qiang Qiu and Kenneth Church. Hubless Nearest Neighbor Search for Bilingual Lexicon Induction. ACL 2019
 
 Neareast Neighbor (NN) Search is widely applied in retrieval tasks. However, a phenomenon called hubness [[1]](http://www.jmlr.org/papers/volume11/radovanovic10a/radovanovic10a.pdf) often degrades NN's performance.
@@ -50,12 +51,27 @@ export PATH=$CUDA_PATH/bin:$PATH
 ```
 Note: Newer versions of Python and the above packages are not tested, but there is no reason why they should not work. So feel free to play with newer versions.
 
-# Experiments 
+# Experiments
 ## Synthetic Data
-Run `python GMM_retrieval.py` to see the synthetic data example in section 5.1. The task is simply to retrieve the same class from a Gaussian mixture. The purpose of this experiment is to understand the connection between HNN and other related methods. An examplar output is already given in `./exp/GMM_retrieval.example.log`.
+Run
 
-## Bilingual Lexicon Induction Experiments
-Run `./bli_exp.sh` to get results of BLI. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE) and uses the same sets of word embeddings. The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.txt`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages.
+```
+python GMM_retrieval.py
+```
+to see the synthetic data example in section 5.1 of the paper. The task is simply to retrieve the same class from a Gaussian mixture. The purpose of this experiment is to understand the connection between HNN and other related methods. An examplar output is already given in `./exp/GMM_retrieval.example.log`.
+
+## Bilingual Lexicon Induction
+The following will reproduce Table 3 of the paper.
+
+First, download the fasttext embeddings and dictionaries at [MUSE](https://github.com/facebookresearch/MUSE).
+```
+./data/get_data.sh
+```
+Second, run
+```
+./bli_exp.sh
+```
+to get induction accuracies. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE). The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.txt`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages.
 
 After the jobs are done, we can check how hubness is reduced. For example, to check the hubness for Portuguese-to-English task, simply run
 ```
