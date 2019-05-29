@@ -38,13 +38,14 @@ pip install 'numpy==1.15.4'
 
 Optional Packages (if use GPU)
 * cupy-cuda90
+
 Assume cuda available version is 9.0. Install it by
 ```
 pip install cupy-cuda90
 ```
 Also, append the CUDA paths in bash environment. The following is a working example:
 ```
-CUDA_PATH=/path/to/cuda9.0.176
+CUDA_PATH=/path/to/cuda-9.0.176
 CUDNN_PATH=/path/to/cudnn-9.0-linux-x64-v7.0-rc
 export LD_LIBRARY_PATH=$CUDA_PATH/lib64:$CUDA_PATH/extras/CUPTI/lib64:$CUDNN_PATH/lib64:$LD_LIBRARY_PATH
 export PATH=$CUDA_PATH/bin:$PATH
@@ -54,7 +55,6 @@ Note: Newer versions of Python and the above packages are not tested, but there 
 # Experiments
 ## Synthetic Data
 Run
-
 ```
 python GMM_retrieval.py
 ```
@@ -65,7 +65,7 @@ The following will reproduce Table 3 of the paper.
 
 First, download the fasttext embeddings and dictionaries at [MUSE](https://github.com/facebookresearch/MUSE).
 ```
-./data/get_data.sh
+./get_data.sh
 ```
 Second, run
 ```
