@@ -1,5 +1,12 @@
+![Baidu Logo](/doc/baidu-research-logo-small.png)
+
+- [HNN](#HNN)
+- [Prerequisites](#Prerequisites)
+- [Experiments](#Experiments)
+
 # HNN
-Hubless Nearest Neighbor Search
+This repositorty contains the code to reproduce all results from the paper:
+Jiaji Huang, Qiang Qiu and Kenneth Church. Hubless Nearest Neighbor Search for Bilingual Lexicon Induction. ACL 2019
 
 Neareast Neighbor (NN) Search is widely applied in retrieval tasks. However, a phenomenon called hubness [[1]](http://www.jmlr.org/papers/volume11/radovanovic10a/radovanovic10a.pdf) often degrades NN's performance.
 Hubness appears as some data points, called hubs, being suspiciously close to many others. It is often encountered in high dimensional spaces.
@@ -8,10 +15,46 @@ This work is interested in reducing hubness during retrieval. The proposed is a 
 Theoretically, HNN provides a unified view towards NN and Inverted SoFtmax (ISF [[2]](https://arxiv.org/pdf/1702.03859.pdf)), a recently proposed retrieval method that mitigates hubness.
 Empirically, HNN demonstrates superior accuracy in a typical retrieval task, Bilingual Lexicon Induction (BLI [[3]](https://arxiv.org/pdf/1710.04087.pdf)).
 
-The repo relies on several packages, including `numpy`, `scipy`, `gensim`, `cupy` (optional, only if cuda available). For easiness, simply run `source activate.sh` to use an existing virtual environment.
+If you have any question, please post it on github or email at authentichj@outlook.com
 
-Run `sbatch -p TitanXx8 --gres=gpu:1 --wrap "python GMM_retrieval.py" -o ./exp/GMM_retrieval.out` to see a synthetic example. The task is simply to retrieve the same class from a Gaussian mixture. An examplar output is given in `./exp/GMM_retrieval.out`.
+# Prerequisites
+Environment
+* python (3.6.6)
 
+Mandatory Packages
+* numpy (1.15.4)
+
+* scipy (1.1.0)
+
+* matplotlib (3.0.2)
+
+* gensim (3.6.0)
+
+All of the above can be installed via `pip`, e.g.,
+```
+pip install 'numpy==1.15.4'
+```
+
+Optional Packages (if use GPU)
+* cupy-cuda90
+Assume cuda available version is 9.0. Install it by
+```
+pip install cupy-cuda90
+```
+Also, append the CUDA paths in bash environment. The following is a working example:
+```
+CUDA_PATH=/path/to/cuda9.0.176
+CUDNN_PATH=/path/to/cudnn-9.0-linux-x64-v7.0-rc
+export LD_LIBRARY_PATH=$CUDA_PATH/lib64:$CUDA_PATH/extras/CUPTI/lib64:$CUDNN_PATH/lib64:$LD_LIBRARY_PATH
+export PATH=$CUDA_PATH/bin:$PATH
+```
+Note: Newer versions of Python and the above packages are not tested, but there is no reason why they should not work. So feel free to play with newer versions.
+
+# Experiments 
+## Synthetic Data
+Run `python GMM_retrieval.py` to see the synthetic data example in section 5.1. The task is simply to retrieve the same class from a Gaussian mixture. The purpose of this experiment is to understand the connection between HNN and other related methods. An examplar output is already given in `./exp/GMM_retrieval.example.log`.
+
+## Bilingual Lexicon Induction Experiments
 Run `./bli_exp.sh` to get results of BLI. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE) and uses the same sets of word embeddings. The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.txt`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages.
 
 After the jobs are done, we can check how hubness is reduced. For example, to check the hubness for Portuguese-to-English task, simply run
