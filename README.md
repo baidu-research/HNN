@@ -50,7 +50,7 @@ CUDNN_PATH=/path/to/cudnn-9.0-linux-x64-v7.0-rc
 export LD_LIBRARY_PATH=$CUDA_PATH/lib64:$CUDA_PATH/extras/CUPTI/lib64:$CUDNN_PATH/lib64:$LD_LIBRARY_PATH
 export PATH=$CUDA_PATH/bin:$PATH
 ```
-Note: Newer versions of Python and the above packages are not tested, but there is no reason why they should not work. So feel free to play with newer versions.
+Note: Other versions of Python and the above packages are not tested. But we believe they should work as long as python3+ is used.
 
 # Experiments
 ## Synthetic Data
@@ -63,17 +63,23 @@ to see the synthetic data example in section 5.1 of the paper. The task is simpl
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
 
-First, download the fasttext embeddings and dictionaries.
+1) Download the fasttext embeddings and dictionaries.
 ```
 ./get_data.sh
 ```
-Second, run
-```
-./bli_exp.sh
-```
-to get induction accuracies. The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE), but differs in that we use larger test dictionaries (data/src-tgt.txt). The outputs are logs (`src-tgt.method.log`) and translated words (`src-tgt.method.trans`) stored under `./exp/bli_500K`, where 500K is the vocabulary size for both source and target languages. In supplementary material, We have also reported results of using a vocabulary of 200K. To reproduce that, simply change `V=200000` in `bli_exp.sh`.
+A ./data directory will be created. Under that are embeddings for 6 European languages, de (German), en (English), es (Spanish), fr (French), it (Italian) and pt (Portuguese), as well as dictionaries for all the pairs.
 
-After the jobs are done, we can check how hubness is reduced. For example, to check the hubness for Portuguese-to-English task, simply run
+2) Get translation accuracy for a `src`-`tgt` pair, using a specified retrieval `method` (one of {nn, isf, csls, hnn}). Run
+```
+./bli_exp.sh $src $tgt $method
+```
+The experiment follows the "supervised" setup at [MUSE](https://github.com/facebookresearch/MUSE), but differs in that we use larger test dictionaries (data/`src`-`tgt`.txt). The output is a log, `/exp/BLI/src-tgt.method.log`. 
+
+By default, we use 500K as the vocabulary size for both source and target languages. In supplementary material, We have also reported results of using a vocabulary of 200K. To reproduce that, simply change `V=200000` in `bli_exp.sh`.
+
+To see all translated words, set `save_translation=1` in `bli_exp.sh`. The translated words will be in `./exp/BLI/src-tgt.method.trans`. Each row of the file is a source word, followed by 10 top candidates of translation, from the "best" to the "worst".
+
+3) Check how hubness is reduced (Figure 4 and Table 2). For example, to check the hubness for Portuguese-to-English task, simply run
 ```
 python hubness_in_translations.py pt en -k 5 -N 200
 ```
@@ -81,8 +87,7 @@ It will produce `k-occurrence` (k=5 in this case) histograms, as measures of hub
 <p align="center">
     <img src="doc/pt-en.k_occur.png" width="400">
 </p>
-We will also see some "hubby" words being listed, for example:
-
+We will also see some (200 in this case) "hubby" words being listed, for example:
 
 | "hubby" words |   NN  | ISF | CSLS | HNN |
 |:-------------:|:-----:|:---:|:----:|:---:|
