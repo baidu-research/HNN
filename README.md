@@ -100,7 +100,7 @@ It will produce `k-occurrence` (`k=5` in this case) histograms, as measures of h
 <p align="center">
     <img src="doc/pt-en.k_occur.png" width="400">
 </p>
-We will also see `N` (`N=200` in this case) "hubby" words being listed, for example:
+We will also see some (200 in this case) "hubby" words being listed, for example:
 
 | "hubby" words |   NN  | ISF | CSLS | HNN |
 |:-------------:|:-----:|:---:|:----:|:---:|
