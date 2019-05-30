@@ -5,7 +5,7 @@
 - [Experiments](#Experiments)
 
 # HNN
-This repositorty contains the code to reproduce all results from the paper:
+This repositorty contains the code to reproduce major results from the paper:
 
 Jiaji Huang, Qiang Qiu and Kenneth Church. Hubless Nearest Neighbor Search for Bilingual Lexicon Induction. ACL 2019
 
@@ -54,22 +54,29 @@ Note: Other versions of Python and the above packages are not tested. But we bel
 
 # Experiments
 ## Synthetic Data
-Run
+The following will reproduce Table 1 of the paper. Run
 ```
 python GMM_retrieval.py
 ```
 to see the synthetic data example in section 5.1 of the paper. The task is simply to retrieve the same class from a Gaussian mixture. The purpose of this experiment is to understand the connection between HNN and other related methods. An examplar output is already given in `./exp/GMM_retrieval.example.log`.
 
+The log includes the accuracies of different retrieval methods, as well as evidence that primal and dual solver of HNN are equivalent. Results in Table 1 can be easily found in the log.
+
+As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file
+```
+grep "grad norm" exp/GMM_retrieval.example.log | cut -d, -f2 | cut -d: -f2 | gnuplot -p -e "set xlabel 'iteration'; set ylabel 'gradient norm'; plot '-' with line notitle;"
+```
+
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
 
-1) Download the fasttext embeddings and dictionaries.
+(1) Download the fasttext embeddings and dictionaries.
 ```
 ./get_data.sh
 ```
 A ./data directory will be created. Under that are embeddings for 6 European languages, de (German), en (English), es (Spanish), fr (French), it (Italian) and pt (Portuguese), as well as dictionaries for all the pairs.
 
-2) Get translation accuracy for a `src`-`tgt` pair, using a specified retrieval `method` (one of {nn, isf, csls, hnn}). Run
+(2) Get translation accuracy for a `src`-`tgt` pair, using a specified retrieval `method` (one of {nn, isf, csls, hnn}). Run
 ```
 ./bli_exp.sh $src $tgt $method
 ```
@@ -79,7 +86,7 @@ By default, we use 500K as the vocabulary size for both source and target langua
 
 To see all translated words, set `save_translation=1` in `bli_exp.sh`. The translated words will be in `./exp/BLI/src-tgt.method.trans`. Each row of the file is a source word, followed by 10 top candidates of translation, from the "best" to the "worst".
 
-3) Check how hubness is reduced (Figure 4 and Table 2). For example, to check the hubness for Portuguese-to-English task, simply run
+(3) Check how hubness is reduced (Figure 4 and Table 2). For example, to check the hubness for Portuguese-to-English task, simply run
 ```
 python hubness_in_translations.py pt en -k 5 -N 200
 ```
