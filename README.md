@@ -74,7 +74,7 @@ This produces a plot of the gradient norms over the iterations in algorithm 2.
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
 
-(1) Download the fasttext embeddings and dictionaries.
+(1) Download the [fasttext](https://fasttext.cc/docs/en/pretrained-vectors.html) embeddings and dictionaries.
 ```
 ./get_data.sh
 ```
