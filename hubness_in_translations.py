@@ -5,7 +5,7 @@ import pylab
 from function_utils import hist_k_occurrence, top_k 
 
 pylab.rcParams.update({'font.size': 22})
-trans_dir='exp/bli_500K/'
+trans_dir='exp/BLI/'
 eps = np.finfo(float).eps
 langs=['de', 'es', 'en', 'fr', 'it', 'pt']
 
@@ -28,7 +28,7 @@ def parse_args():
 def read_translations(src, tgt, k=10, method='nn'):
     translations = []
     with open(os.path.join(trans_dir,
-                           src + '-' + tgt + '.' + method + '.txt')) as f:
+                           src + '-' + tgt + '.' + method + '.trans')) as f:
         for line in f:
             ws = line.strip().split()
             translations.append(ws[1:k+1])
@@ -68,5 +68,3 @@ if __name__ == '__main__':
     pylab.ylabel(r'$p(N_{' + str(args.k) +'})$')
     pylab.tight_layout()
     pylab.show()
-    pylab.savefig(
-        os.path.join(trans_dir, src + '-' + tgt + '.k_occur.png'))

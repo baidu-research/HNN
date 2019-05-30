@@ -63,7 +63,7 @@ to see the synthetic data example in section 5.1 of the paper. The task is simpl
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
 
-1) Download the fasttext embeddings and dictionaries.
+1) Download the [fasttext](https://fasttext.cc/docs/en/pretrained-vectors.html) embeddings and dictionaries.
 ```
 ./get_data.sh
 ```
