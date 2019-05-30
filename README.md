@@ -64,7 +64,7 @@ to reproduce Table 1 of the paper. The task is to retrieve the same class from a
 
 The log includes the accuracies of different retrieval methods, as well as evidence that primal and dual solvers of HNN are equivalent. Results in Table 1 can be easily found in the log.
 
-As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if the learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file using the following bash command (assuming `gnuplot` installed)
+As we discussed in the paper, dual solver (algorithm 2) of HNN minimizes a convex objective. Therefore, if the learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file using the following bash command (assuming `gnuplot` installed)
 ```
 grep "grad norm" exp/GMM_retrieval.example.log | cut -d, -f2 | cut -d: -f2 | gnuplot -p -e "set xlabel 'iteration'; set ylabel 'gradient norm'; plot '-' with line notitle;"
 ```
