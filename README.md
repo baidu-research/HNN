@@ -16,7 +16,7 @@ This work is interested in reducing hubness during retrieval. The proposed is a 
 Theoretically, HNN provides a unified view towards NN and Inverted SoFtmax (ISF [[2]](https://arxiv.org/pdf/1702.03859.pdf)), a recently proposed retrieval method that mitigates hubness.
 Empirically, HNN demonstrates superior accuracy in a typical retrieval task, Bilingual Lexicon Induction (BLI [[3]](https://arxiv.org/pdf/1710.04087.pdf)).
 
-If you have any question, please post it on github or email at authentichj@outlook.com
+If you have any question, please post it on github or email authentichj@outlook.com
 
 # Prerequisites
 Environment
