@@ -62,11 +62,11 @@ The task is to retrieve the same class from a Gaussian mixture. Details can be f
 
 The log includes the accuracies of different retrieval methods, as well as evidence that primal and dual solvers of HNN are equivalent. Results in Table 1 can be easily found in the log.
 
-As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if the learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file (assuming `gnuplot` installed)
+As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if the learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file using the following bash command (assuming `gnuplot` installed)
 ```
 grep "grad norm" exp/GMM_retrieval.example.log | cut -d, -f2 | cut -d: -f2 | gnuplot -p -e "set xlabel 'iteration'; set ylabel 'gradient norm'; plot '-' with line notitle;"
 ```
-This produces a plot of the gradient norms over the iterations in algorithm 2.
+It will produce a plot of the gradient norm over the iterations, as below.
 <p align="center">
     <img src="doc/gradient_norm.png" width="400">
 </p>
