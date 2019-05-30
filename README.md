@@ -19,7 +19,7 @@ Empirically, HNN demonstrates superior accuracy in a typical retrieval task, Bil
 The following two sections give a step-by-step tutorial for repducing the major results in the paper. If you have any question, please post it on github or email authentichj@outlook.com
 
 # Prerequisites
-Note: Other versions of Python and packages below are not tested. But we believe they should work as long as python3+ is used.
+Note: Other versions of python and packages below are not tested. But we believe they should work as long as python3+ is used.
 
 Environment
 * python (3.6.6)
