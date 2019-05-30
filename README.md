@@ -54,18 +54,22 @@ Note: Other versions of Python and the above packages are not tested. But we bel
 
 # Experiments
 ## Synthetic Data
-The following will reproduce Table 1 of the paper. Run
+The following will reproduce Table 1 of the paper. Simply run
 ```
 python GMM_retrieval.py
 ```
-to see the synthetic data example in section 5.1 of the paper. The task is simply to retrieve the same class from a Gaussian mixture. The purpose of this experiment is to understand the connection between HNN and other related methods. An examplar output is already given in `./exp/GMM_retrieval.example.log`.
+The task is to retrieve the same class from a Gaussian mixture. Details can be found in section 5.1 of the paper. The purpose of this experiment is to understand the connection between HNN and other related methods. An example output is already given in `./exp/GMM_retrieval.example.log`.
 
-The log includes the accuracies of different retrieval methods, as well as evidence that primal and dual solver of HNN are equivalent. Results in Table 1 can be easily found in the log.
+The log includes the accuracies of different retrieval methods, as well as evidence that primal and dual solvers of HNN are equivalent. Results in Table 1 can be easily found in the log.
 
-As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file (assuming gnuplot installed)
+As we discussed in the paper, dual solver of HNN minimizes a convex objective. Therefore, if the learning rate in algorithm 2 is properly chosen, the loss and gradient norm should be monotonicly decreasing. This fact can be easily checked by parsing the log file (assuming `gnuplot` installed)
 ```
 grep "grad norm" exp/GMM_retrieval.example.log | cut -d, -f2 | cut -d: -f2 | gnuplot -p -e "set xlabel 'iteration'; set ylabel 'gradient norm'; plot '-' with line notitle;"
 ```
+This produces a plot of the gradient norms over the iterations in algorithm 2.
+<p align="center">
+    <img src="doc/gradient_norm.png" width="400">
+</p>
 
 ## Bilingual Lexicon Induction
 The following will reproduce Table 3 of the paper.
