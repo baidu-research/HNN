@@ -7,7 +7,7 @@
 # HNN
 This repository contains the code to reproduce major results from the paper:
 
-Jiaji Huang, Qiang Qiu and Kenneth Church. Hubless Nearest Neighbor Search for Bilingual Lexicon Induction. ACL 2019
+[Jiaji Huang, Qiang Qiu and Kenneth Church. Hubless Nearest Neighbor Search for Bilingual Lexicon Induction. ACL 2019](doc/HNN.pdf)
 
 Neareast Neighbor (NN) Search is widely applied in retrieval tasks. However, a phenomenon called hubness [[1]](http://www.jmlr.org/papers/volume11/radovanovic10a/radovanovic10a.pdf) often degrades NN's performance.
 Hubness appears as some data points, called hubs, being suspiciously close to many others. It is often encountered in high dimensional spaces.
